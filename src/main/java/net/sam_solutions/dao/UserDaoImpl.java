@@ -27,8 +27,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
     }
 
     public List<UsersEntity> getAll() {
-        List<UsersEntity> usersEntities = getSessionFactory().getCurrentSession().createQuery("FROM UsersEntity U ORDER BY U.id ASC ").list();
-        return usersEntities;
+        return getSessionFactory().getCurrentSession().createQuery("FROM UsersEntity U ORDER BY U.id ASC ").list();
     }
 
     public void create(UsersEntity usersEntity) {

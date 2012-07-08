@@ -21,8 +21,7 @@ public class PublicInfoDaoImpl extends HibernateDaoSupport implements PublicInfo
 
     @Override
     public List<PublicInfoEntity> getAll() {
-        List<PublicInfoEntity> publicInfoEntities = getSessionFactory().getCurrentSession().createQuery("FROM PublicInfoEntity P ORDER BY P.id ASC ").list();
-        return publicInfoEntities;
+        return getSessionFactory().getCurrentSession().createQuery("FROM PublicInfoEntity P ORDER BY P.id ASC ").list();
     }
 
     @Override

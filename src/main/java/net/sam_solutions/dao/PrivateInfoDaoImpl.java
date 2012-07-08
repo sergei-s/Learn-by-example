@@ -21,8 +21,7 @@ public class PrivateInfoDaoImpl extends HibernateDaoSupport implements PrivateIn
 
     @Override
     public List<PrivateInfoEntity> getAll() {
-        List<PrivateInfoEntity> privateInfoEntities = getSessionFactory().getCurrentSession().createQuery("FROM PrivateInfoEntity P ORDER BY P.id ASC ").list();
-        return privateInfoEntities;
+        return getSessionFactory().getCurrentSession().createQuery("FROM PrivateInfoEntity P ORDER BY P.id ASC ").list();
     }
 
     @Override

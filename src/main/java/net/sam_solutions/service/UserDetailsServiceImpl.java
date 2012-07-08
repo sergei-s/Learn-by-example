@@ -35,7 +35,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority> ();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        User user = new User(usersEntity.getLogin(), usersEntity.getPassword(), true, true, true, true, authorities);
-        return user;
+        return new User(usersEntity.getLogin(), usersEntity.getPassword(), true, true, true, true, authorities);
     }
 }
