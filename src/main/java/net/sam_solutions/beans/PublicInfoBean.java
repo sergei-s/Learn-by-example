@@ -17,18 +17,8 @@ import java.util.List;
 public class PublicInfoBean {
     @Autowired
     private PublicInfoService publicInfoService;
-    private String name;
     private List<PublicInfoEntity> publicInfoEntities;
     private PublicInfoEntity selectedItem = new PublicInfoEntity();
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void setPublicInfoService(PublicInfoService publicInfoService) {
         this.publicInfoService = publicInfoService;

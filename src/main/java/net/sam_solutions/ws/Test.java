@@ -3,15 +3,14 @@ package net.sam_solutions.ws;
 import net.sam_solutions.model.PrivateInfoEntity;
 import net.sam_solutions.model.PublicInfoEntity;
 import net.sam_solutions.model.UsersEntity;
-import net.sam_solutions.open_id.OpenIdAuthenticator;
-import net.sam_solutions.open_id.OpenIdResponse;
 import net.sam_solutions.service.UserService;
-import org.openid4java.discovery.DiscoveryInformation;
-import org.openid4java.message.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.*;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -42,8 +41,6 @@ public class Test {
         publicInfoEntity.setUsersByUserId(usersEntity);
         usersEntity.setPublicInfoById(publicInfoEntity);
         userService.create(usersEntity);
-        UserExists userExists = new UserExists();
-        userExists.setValue(userService.checkUser(login));
         return Response.status(200).build();
     }
 
@@ -59,19 +56,4 @@ public class Test {
             return "not registered";
         }
     }
-
-/*    @POST
-    @Path("/openId/{url}")
-    @Produces(MediaType.APPLICATION_XML)
-    public String openIdRedirect(@PathParam("url") String openIdUrl) {
-        OpenIdAuthenticator authenticator = new OpenIdAuthenticator();
-        AuthRequest authRequest = authenticator.proceedRedirect(openIdUrl);
-        DiscoveryInformation discovered = authenticator.getDiscovered();
-        if (authRequest != null) {
-            return authRequest.getDestinationUrl(true);
-        } else {
-            return "http://google.com";
-        }
-    }*/
-
 }

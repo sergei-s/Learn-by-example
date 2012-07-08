@@ -15,30 +15,12 @@ import java.util.List;
 @Component
 @Scope(value="request")
 public class PrivateInfoBean {
-    private String email;
     @Autowired
     private PrivateInfoService privateInfoService;
     private List<PrivateInfoEntity> privateInfoEntities;
-    private PrivateInfoEntity selectedItem = new PrivateInfoEntity();
 
     public void setPrivateInfoService(PrivateInfoService privateInfoService) {
         this.privateInfoService = privateInfoService;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public PrivateInfoEntity getSelectedItem() {
-        return selectedItem;
-    }
-
-    public void setSelectedItem(PrivateInfoEntity selectedItem) {
-        this.selectedItem = selectedItem;
     }
 
     public List<PrivateInfoEntity> getPrivateInfoEntities() {
