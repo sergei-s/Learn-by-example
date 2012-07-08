@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Simple JSF Facelets page</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="layout.xhtml">
+        <ui:define name="content">
+            <h:link value="First page" outcome="index.xhtml"></h:link>
+            <br/>
+            <h:outputLink value="#{request.contextPath}/j_spring_security_logout">Log out</h:outputLink>
+            <br/>
+            Hello #{usersBean.login} with pass #{usersBean.password}
+            <br/>
+            <!--You are #{usersBean.checkRegistred()}-->
+            <br/>
+            You are #{usersBean.getNameFromSpring()} (From Spring)
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:dataTable value="#{privateInfoBean.privateInfoEntities}" var="privateInfoEntity">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            #{privateInfoEntity.userId}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Login"/>
+                            </f:facet>
+                            #{privateInfoEntity.email}
+                        </h:column>
+                    </h:dataTable>
+                    <h:dataTable value="#{publicInfoBean.publicInfoEntities}" var="publicInfoEntity">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            #{publicInfoEntity.name}
+                        </h:column>
+                        <h:column>
+                            <h:commandLink value="Edit" action="#{publicInfoBean.edit()}">
+                                <f:setPropertyActionListener target="#{publicInfoBean.selectedItem}" value="#{publicInfoEntity}"/>
+                            </h:commandLink>
+                        </h:column>
+                        <h:column>
+                            <h:commandLink value="Delete" action="#{usersTableData.deleteById()}">
+                                <f:setPropertyActionListener target="#{usersTableData.selectedItem.id}" value="#{publicInfoEntity.userId}"/>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

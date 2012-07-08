@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Simple JSF Facelets page</title>
+</h:head>
+<h:body>
+    <ui:composition template="layout.xhtml">
+        <ui:define name="content">
+
+            <h:link value="Second page" outcome="second.xhtml"></h:link>
+            <br/>
+            <h:form prependId="false">
+                <h:outputLabel value="#{msg.name}" for="j_username"/>
+                <h:inputText id="j_username" name="j_username" value="#{usersBean.login}" required="true"
+                             requiredMessage="Name, please"></h:inputText>
+                <h:message for="j_username"/>
+                <br/>
+                <h:outputLabel value="#{msg.pass}" for="j_password"/>
+                <h:inputSecret id="j_password" name="j_password" value="#{usersBean.password}" required="true"
+                               requiredMessage="Pass, please"></h:inputSecret>
+                <h:message for="j_password"/>
+                <br/>
+                <h:selectBooleanCheckbox id="_spring_security_remember_me"/>
+                <br/>
+                <h:commandButton action="#{usersBean.doLogin()}" value="Go"></h:commandButton>
+            </h:form>
+            <br/>
+            <br/>
+
+            <h:form prependId="false">
+                OpenID url: <h:inputText id="openid_identifier" name="openid_identifier" value="#{usersBean.openIdUrl}" required="true"
+                                     requiredMessage="openId, please"></h:inputText>
+                <h:commandButton action="#{usersBean.proceedOpenId()}" value="Use OpenID"></h:commandButton>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

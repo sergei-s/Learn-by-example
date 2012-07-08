@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <title></title>
+</head>
+<h:body>
+    <ui:composition template="layout.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <h:outputLabel value="#{msg.login}" for="name" />
+                <h:inputText id="login" value="#{usersBean.login}" required="true" requiredMessage="Login, please"></h:inputText>
+                <h:message for="login"/>
+                <br/>
+                <h:outputLabel value="#{msg.pass}" for="pass" />
+                <h:inputSecret id="pass" value="#{usersBean.password}" required="true" requiredMessage="Pass, please"></h:inputSecret>
+                <h:message for="pass"/>
+                <br/>
+                <h:outputLabel value="#{msg.name}" for="name" />
+                <h:inputText id="name" value="#{usersBean.name}" required="true" requiredMessage="Name, please"></h:inputText>
+                <h:message for="name"/>
+                <br/>
+                <h:outputLabel value="#{msg.email}" for="email" />
+                <h:inputText id="email" value="#{usersBean.email}" required="true" requiredMessage="Email, please"></h:inputText>
+                <h:message for="email"/>
+                <br/>
+                <h:commandButton action="#{usersBean.create()}" value="Create"></h:commandButton>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>
