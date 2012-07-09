@@ -35,8 +35,12 @@
                 />
     </http>
 
+    <ldap-server url="ldap://adldap.sam-solutions.net:389/dc=sam-solutions,dc=net" />
+
+
     <authentication-manager alias="authenticationManager">
-        <authentication-provider  user-service-ref="userDetailsServiceImpl"/>
+        <ldap-authentication-provider user-dn-pattern="uid={0}"/>
+        <authentication-provider user-service-ref="userDetailsServiceImpl"/>
     </authentication-manager>
 
 
