@@ -20,7 +20,7 @@ public class OpenIdUserDetailsServiceImpl implements UserDetailsService {
 
         public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
             Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority> ();
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             return new User(username, "unused", authorities);
         }
 }

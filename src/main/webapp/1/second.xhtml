@@ -21,6 +21,8 @@
             <br/>
             Hello #{usersBean.login}
             <br/>
+            #{usersBean.getAuthFromSpring()}
+            <br/>
             You are #{usersBean.getNameFromSpring()} (From Spring)
             <h:form>
                 <h:panelGrid columns="2">
@@ -46,12 +48,13 @@
                             #{publicInfoEntity.name}
                         </h:column>
                         <h:column>
-                            <h:commandLink value="Edit" action="#{publicInfoBean.edit()}">
+                            <h:commandLink value="Edit" action="#{publicInfoBean.edit()}"
+                                           rendered="#{request.isUserInRole('ROLE_USER')}">
                                 <f:setPropertyActionListener target="#{publicInfoBean.selectedItem}" value="#{publicInfoEntity}"/>
                             </h:commandLink>
                         </h:column>
                         <h:column>
-                            <h:commandLink value="Delete" action="#{usersTableData.deleteById()}">
+                            <h:commandLink value="Delete" action="#{usersTableData.deleteById()}" rendered="#{request.isUserInRole('ROLE_ADMIN')}">
                                 <f:setPropertyActionListener target="#{usersTableData.selectedItem.id}" value="#{publicInfoEntity.userId}"/>
                             </h:commandLink>
                         </h:column>

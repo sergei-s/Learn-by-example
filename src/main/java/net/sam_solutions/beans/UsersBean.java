@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * User: Администратор
@@ -73,6 +75,16 @@ public class UsersBean implements Serializable {
     public String getNameFromSpring() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getName();
+    }
+
+    public String getAuthFromSpring() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority > auths = auth.getAuthorities();
+        String s = "";
+        for (GrantedAuthority auth1 : auths) {
+            s = s + auth1.getAuthority();
+        }
+        return s;
     }
 
     public String doLogin() throws IOException, ServletException {

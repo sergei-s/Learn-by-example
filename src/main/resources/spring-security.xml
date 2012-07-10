@@ -11,12 +11,11 @@
         <intercept-url pattern="/index.jsf" access="isAnonymous()"/>
         <intercept-url pattern="/fail.jsf" access="isAnonymous()"/>
         <intercept-url pattern="/loginfailed.jsf" access="isAnonymous()"/>
-        <intercept-url pattern="/spring_security_login" access="isAnonymous()"/>
         <intercept-url pattern="/j_spring_security_check" access="isAnonymous()"/>
         <intercept-url pattern="/j_spring_openid_security_check" access="isAnonymous()"/>
         <intercept-url pattern="/test*" access="permitAll"/>
         <intercept-url pattern="/rest*" access="permitAll"/>
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
         <!--<remember-me key="123"/>-->
         <form-login
                 authentication-failure-url="/fail.jsf"
@@ -35,39 +34,40 @@
                 />
     </http>
 
-    <beans:bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-        <beans:constructor-arg value="ldap://adldap.sam-solutions.net:389/dc=sam-solutions,dc=net"/>
-        <beans:property name="userDn" value=""/>
-        <beans:property name="password" value=""/>
-        <beans:property name="baseEnvironmentProperties">
-            <beans:map>
-                <beans:entry key="java.naming.referral">
-                    <beans:value>follow</beans:value>
-                </beans:entry>
-            </beans:map>
-        </beans:property>
-    </beans:bean>
+    <ldap-server id="ldap-server" manager-dn="cn=Directory Manager" manager-password="123"
+                  url="ldap://localhost:389/dc=example,dc=com" />
 
     <authentication-manager alias="authenticationManager">
-        <ldap-authentication-provider server-ref="contextSource" user-search-filter="(sAMAccountName={0})"/>
+        <ldap-authentication-provider server-ref="ldap-server" user-search-filter="(cn={0})"
+                                      user-context-mapper-ref="userContextMapper"/>
+        <!--<authentication-provider user-service-ref="userDetailsServiceImpl"/>-->
+       <!-- <authentication-provider ref="ldapActiveDirectoryAuthProvider"/>-->
     </authentication-manager>
+<!--
+    <beans:bean id="ldapActiveDirectoryAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+        <beans:constructor-arg value="localhost" />
+        <beans:constructor-arg value="ldap://localhost:389/dc=example,dc=com" />
+        <beans:property name="authoritiesMapper" ref="grantedAuthoritiesMapper" />
+    </beans:bean>-->
 
-    <beans:bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
-        <beans:constructor-arg ref="contextSource"/>
-        <beans:property name="ignorePartialResultException" value="true"></beans:property>
-    </beans:bean>
-    <!--    <beans:bean id="ldapAuthenticationProvider"
-                class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+
+<!--    <beans:bean id="ldapAuthProvider"
+          class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
         <beans:constructor-arg>
-            <beans:bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
-                <beans:constructor-arg ref="ldap-server"/>
+            <beans:bean
+                    class="org.springframework.security.ldap.authentication.BindAuthenticator">
+                <beans:constructor-arg ref="ldap-server" />
                 <beans:property name="userDnPatterns">
                     <beans:list>
-                        <beans:value>uid={0}</beans:value>
+                        <beans:value>uid={0},ou=People</beans:value>
                     </beans:list>
                 </beans:property>
             </beans:bean>
         </beans:constructor-arg>
-        <beans:constructor-arg ref="authoritiesPopulator"/>
+        <beans:constructor-arg>
+            <beans:bean
+                    >
+            </beans:bean>
+        </beans:constructor-arg>
     </beans:bean>-->
 </beans:beans>
