@@ -7,7 +7,7 @@
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
-    <http auto-config="true" use-expressions="true" access-denied-page="/second.jsf" >
+    <http auto-config="true" use-expressions="true" access-denied-page="/second.jsf">
         <intercept-url pattern="/index.jsf" access="isAnonymous()"/>
         <intercept-url pattern="/fail.jsf" access="isAnonymous()"/>
         <intercept-url pattern="/loginfailed.jsf" access="isAnonymous()"/>
@@ -16,14 +16,14 @@
         <intercept-url pattern="/j_spring_openid_security_check" access="isAnonymous()"/>
         <intercept-url pattern="/test*" access="permitAll"/>
         <intercept-url pattern="/rest*" access="permitAll"/>
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
         <!--<remember-me key="123"/>-->
         <form-login
-                    authentication-failure-url="/fail.jsf"
-                    default-target-url="/second.jsf"
-                    login-processing-url="/j_spring_security_check"
-                    always-use-default-target="true"
-                    />
+                authentication-failure-url="/fail.jsf"
+                default-target-url="/second.jsf"
+                login-processing-url="/j_spring_security_check"
+                always-use-default-target="true"
+                />
         <logout logout-success-url="/index.jsf" delete-cookies="true"/>
         <openid-login
                 login-page="/index.jsf"
@@ -35,13 +35,39 @@
                 />
     </http>
 
-    <ldap-server url="ldap://adldap.sam-solutions.net:389/dc=sam-solutions,dc=net" />
-
+    <beans:bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+        <beans:constructor-arg value="ldap://adldap.sam-solutions.net:389/dc=sam-solutions,dc=net"/>
+        <beans:property name="userDn" value=""/>
+        <beans:property name="password" value=""/>
+        <beans:property name="baseEnvironmentProperties">
+            <beans:map>
+                <beans:entry key="java.naming.referral">
+                    <beans:value>follow</beans:value>
+                </beans:entry>
+            </beans:map>
+        </beans:property>
+    </beans:bean>
 
     <authentication-manager alias="authenticationManager">
-        <ldap-authentication-provider user-dn-pattern="uid={0}"/>
-        <authentication-provider user-service-ref="userDetailsServiceImpl"/>
+        <ldap-authentication-provider server-ref="contextSource" user-search-filter="(sAMAccountName={0})"/>
     </authentication-manager>
 
-
+    <beans:bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+        <beans:constructor-arg ref="contextSource"/>
+        <beans:property name="ignorePartialResultException" value="true"></beans:property>
+    </beans:bean>
+    <!--    <beans:bean id="ldapAuthenticationProvider"
+                class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+        <beans:constructor-arg>
+            <beans:bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
+                <beans:constructor-arg ref="ldap-server"/>
+                <beans:property name="userDnPatterns">
+                    <beans:list>
+                        <beans:value>uid={0}</beans:value>
+                    </beans:list>
+                </beans:property>
+            </beans:bean>
+        </beans:constructor-arg>
+        <beans:constructor-arg ref="authoritiesPopulator"/>
+    </beans:bean>-->
 </beans:beans>

@@ -1,5 +1,8 @@
 package net.sam_solutions.open_id;
 
+import org.openid4java.util.HttpClientFactory;
+import org.openid4java.util.ProxyProperties;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -10,10 +13,10 @@ import javax.servlet.ServletContextListener;
 public class ProxySetUpListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        /*ProxyProperties proxyProps = new ProxyProperties();
+        ProxyProperties proxyProps = new ProxyProperties();
         proxyProps.setProxyHostName("proxy.sam-solutions.net");
         proxyProps.setProxyPort(8080);
-        HttpClientFactory.setProxyProperties(proxyProps);*/
+        HttpClientFactory.setProxyProperties(proxyProps);
     }
 
     @Override
