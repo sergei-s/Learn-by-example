@@ -49,7 +49,7 @@
                         </h:column>
                         <h:column>
                             <h:commandLink value="Edit" action="#{publicInfoBean.edit()}"
-                                           rendered="#{request.isUserInRole('ROLE_USER')}">
+                                           rendered="#{request.isUserInRole('ROLE_USER') or request.isUserInRole('ROLE_ADMIN')}">
                                 <f:setPropertyActionListener target="#{publicInfoBean.selectedItem}" value="#{publicInfoEntity}"/>
                             </h:commandLink>
                         </h:column>

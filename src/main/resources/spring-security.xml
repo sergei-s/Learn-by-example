@@ -6,7 +6,7 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <http auto-config="true" use-expressions="true" access-denied-page="/second.jsf">
+    <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/index.jsf" access="isAnonymous()"/>
         <intercept-url pattern="/fail.jsf" access="isAnonymous()"/>
         <intercept-url pattern="/loginfailed.jsf" access="isAnonymous()"/>
@@ -14,7 +14,7 @@
         <intercept-url pattern="/j_spring_openid_security_check" access="isAnonymous()"/>
         <intercept-url pattern="/test*" access="permitAll"/>
         <intercept-url pattern="/rest*" access="permitAll"/>
-        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN,ROLE_USER')"/>
         <!--<remember-me key="123"/>-->
         <form-login
                 authentication-failure-url="/fail.jsf"
