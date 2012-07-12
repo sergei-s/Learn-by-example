@@ -1,5 +1,6 @@
 package net.sam_solutions.ldap;
 
+import org.apache.log4j.Logger;
 import org.springframework.ldap.core.DirContextAdapter;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.DistinguishedName;
@@ -21,6 +22,13 @@ import java.util.Collection;
 public class UserContextMapper implements UserDetailsContextMapper {
     @Override
     public UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
+        Logger logger = Logger.getLogger(UserDetails.class);
+        for (GrantedAuthority auth : authorities) {
+
+            logger.error("---------------------------------");
+            logger.error(auth.getAuthority());
+            logger.error("----------------------------------");
+        }
         DistinguishedName distinguishedName = new DistinguishedName(ctx.getDn());
         String ou = distinguishedName.getLdapRdn("ou").getValue();
         Collection<GrantedAuthority> mappedAuthorities = new ArrayList<GrantedAuthority>();
