@@ -14,30 +14,31 @@
     <ui:composition template="layout.xhtml">
         <ui:define name="content">
 
-            <h:link value="Second page" outcome="second.xhtml"></h:link>
+            <h:link value="Second page" outcome="second.xhtml"/>
             <br/>
             <h:form prependId="false">
                 <h:outputLabel value="#{msg.name}" for="j_username"/>
                 <h:inputText id="j_username" name="j_username" value="#{usersBean.login}" required="true"
-                             requiredMessage="Name, please"></h:inputText>
+                             requiredMessage="Name, please"/>
                 <h:message for="j_username"/>
                 <br/>
                 <h:outputLabel value="#{msg.pass}" for="j_password"/>
                 <h:inputSecret id="j_password" name="j_password" value="#{usersBean.password}" required="true"
-                               requiredMessage="Pass, please"></h:inputSecret>
+                               requiredMessage="Pass, please"/>
                 <h:message for="j_password"/>
                 <br/>
                 <h:selectBooleanCheckbox id="_spring_security_remember_me"/>
                 <br/>
-                <h:commandButton action="#{usersBean.doLogin()}" value="Go"></h:commandButton>
+                <h:commandButton action="#{usersBean.doLogin()}" value="Go"/>
             </h:form>
             <br/>
             <br/>
 
             <h:form prependId="false">
-                OpenID url: <h:inputText id="openid_identifier" name="openid_identifier" value="#{usersBean.openIdUrl}" required="true"
-                                     requiredMessage="openId, please"></h:inputText>
-                <h:commandButton action="#{usersBean.proceedOpenId()}" value="Use OpenID"></h:commandButton>
+                OpenID url: <h:inputText id="openid_identifier" name="openid_identifier" value="#{usersBean.openIdUrl}"
+                                         required="true"
+                                         requiredMessage="openId, please"/>
+                <h:commandButton action="#{usersBean.proceedOpenId()}" value="Use OpenID"/>
             </h:form>
 
         </ui:define>

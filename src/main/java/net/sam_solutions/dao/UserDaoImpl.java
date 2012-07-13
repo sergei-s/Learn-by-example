@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -56,8 +57,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
     }
 
     public UsersEntity findByName(String name) {
-        UsersEntity usersEntity = (UsersEntity) getSessionFactory().getCurrentSession().createQuery("FROM UsersEntity" +
+        return (UsersEntity) getSessionFactory().getCurrentSession().createQuery("FROM UsersEntity" +
                 " where login = ?").setParameter(0, name).uniqueResult();
-        return usersEntity;
     }
 }

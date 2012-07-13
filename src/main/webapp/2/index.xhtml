@@ -14,22 +14,22 @@
         <ui:define name="content">
             <h:form>
                 <h:outputLabel value="#{msg.login}" for="name" />
-                <h:inputText id="login" value="#{usersBean.login}" required="true" requiredMessage="Login, please"></h:inputText>
+                <h:inputText id="login" value="#{usersBean.login}" required="true" requiredMessage="Login, please"/>
                 <h:message for="login"/>
                 <br/>
                 <h:outputLabel value="#{msg.pass}" for="pass" />
-                <h:inputSecret id="pass" value="#{usersBean.password}" required="true" requiredMessage="Pass, please"></h:inputSecret>
+                <h:inputSecret id="pass" value="#{usersBean.password}" required="true" requiredMessage="Pass, please"/>
                 <h:message for="pass"/>
                 <br/>
                 <h:outputLabel value="#{msg.name}" for="name" />
-                <h:inputText id="name" value="#{usersBean.name}" required="true" requiredMessage="Name, please"></h:inputText>
+                <h:inputText id="name" value="#{usersBean.name}" required="true" requiredMessage="Name, please"/>
                 <h:message for="name"/>
                 <br/>
                 <h:outputLabel value="#{msg.email}" for="email" />
-                <h:inputText id="email" value="#{usersBean.email}" required="true" requiredMessage="Email, please"></h:inputText>
+                <h:inputText id="email" value="#{usersBean.email}" required="true" requiredMessage="Email, please"/>
                 <h:message for="email"/>
                 <br/>
-                <h:commandButton action="#{usersBean.create()}" value="Create"></h:commandButton>
+                <h:commandButton action="#{usersBean.create()}" value="Create"/>
             </h:form>
         </ui:define>
     </ui:composition>

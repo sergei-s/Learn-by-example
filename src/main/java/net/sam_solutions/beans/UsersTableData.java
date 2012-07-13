@@ -38,15 +38,6 @@ public class UsersTableData implements Serializable {
         return usersEntities;
     }
 
-    public String edit() {
-        return "edit";
-    }
-
-    public String save() {
-        userService.update(selectedItem);
-        return "second";
-    }
-
     public String deleteById() {
         userService.deleteById(selectedItem.getId());
         return "second";

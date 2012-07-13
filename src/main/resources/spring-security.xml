@@ -38,7 +38,9 @@
 
     <authentication-manager alias="authenticationManager">
         <ldap-authentication-provider server-ref="ldap-server" user-search-filter="(cn={0})"
-                                      user-context-mapper-ref="userContextMapper"/>
+                                      group-search-base="ou=Groups"
+                                      group-search-filter="uniqueMember={0}"/>
         <!--<authentication-provider user-service-ref="userDetailsServiceImpl"/>-->
     </authentication-manager>
+
 </beans:beans>
