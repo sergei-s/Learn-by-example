@@ -22,6 +22,7 @@
                 login-processing-url="/j_spring_security_check"
                 always-use-default-target="true"
                 />
+
         <logout logout-success-url="/index.jsf" delete-cookies="true"/>
         <openid-login
                 login-page="/index.jsf"
