@@ -1,0 +1,310 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.3
+-- Dumped by pg_dump version 9.1.3
+-- Started on 2012-06-01 20:18:51
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 168 (class 3079 OID 11639)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1883 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 163 (class 1259 OID 24613)
+-- Dependencies: 5
+-- Name: deleted_users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_users (
+    login character varying(256),
+    password character varying(256),
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.deleted_users OWNER TO postgres;
+
+--
+-- TOC entry 162 (class 1259 OID 24603)
+-- Dependencies: 5
+-- Name: private_info; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE private_info (
+    email character varying(256),
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.private_info OWNER TO postgres;
+
+--
+-- TOC entry 164 (class 1259 OID 24763)
+-- Dependencies: 162 5
+-- Name: private_info_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE private_info_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.private_info_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 1884 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: private_info_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE private_info_user_id_seq OWNED BY private_info.user_id;
+
+
+--
+-- TOC entry 1885 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: private_info_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('private_info_user_id_seq', 1, true);
+
+
+--
+-- TOC entry 161 (class 1259 OID 24593)
+-- Dependencies: 5
+-- Name: public_info; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public_info (
+    name character varying(256),
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.public_info OWNER TO postgres;
+
+--
+-- TOC entry 165 (class 1259 OID 24776)
+-- Dependencies: 5 161
+-- Name: public_info_pk_public_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public_info_pk_public_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.public_info_pk_public_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 1886 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: public_info_pk_public_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public_info_pk_public_id_seq OWNED BY public_info.user_id;
+
+
+--
+-- TOC entry 1887 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: public_info_pk_public_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public_info_pk_public_id_seq', 1, false);
+
+
+--
+-- TOC entry 167 (class 1259 OID 24834)
+-- Dependencies: 5
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE users (
+    login character(1),
+    password character(1),
+    id integer NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 166 (class 1259 OID 24832)
+-- Dependencies: 5 167
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 1888 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- TOC entry 1889 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- TOC entry 1865 (class 2604 OID 24837)
+-- Dependencies: 167 166 167
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- TOC entry 1876 (class 0 OID 24613)
+-- Dependencies: 163
+-- Data for Name: deleted_users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY deleted_users (login, password, id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1875 (class 0 OID 24603)
+-- Dependencies: 162
+-- Data for Name: private_info; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY private_info (email, user_id) FROM stdin;
+2  1
+\.
+
+
+--
+-- TOC entry 1874 (class 0 OID 24593)
+-- Dependencies: 161
+-- Data for Name: public_info; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public_info (name, user_id) FROM stdin;
+123	25
+11	26
+2	27
+2	1
+\.
+
+
+--
+-- TOC entry 1877 (class 0 OID 24834)
+-- Dependencies: 167
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY users (login, password, id) FROM stdin;
+2	2	1
+\.
+
+
+--
+-- TOC entry 1871 (class 2606 OID 24620)
+-- Dependencies: 163 163
+-- Name: pk_deleted_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_users
+    ADD CONSTRAINT pk_deleted_id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1873 (class 2606 OID 24839)
+-- Dependencies: 167 167
+-- Name: pk_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT pk_id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1869 (class 2606 OID 24791)
+-- Dependencies: 162 162
+-- Name: pk_private_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY private_info
+    ADD CONSTRAINT pk_private_id PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 1867 (class 2606 OID 24804)
+-- Dependencies: 161 161
+-- Name: pk_public_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public_info
+    ADD CONSTRAINT pk_public_id PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 1882 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2012-06-01 20:18:52
+
+--
+-- PostgreSQL database dump complete
+--
+
